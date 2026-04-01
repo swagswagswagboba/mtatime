@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinton-Washington Trains</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #0f0f0f;
+      color: white;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .last-updated {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 32px;
+    }
+
+    .last-updated span { color: #888; }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .train-group {
+      max-width: 500px;
+      margin: 0 auto 32px auto;
+    }
+
+    .train-card {
+      border-radius: 20px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .train-card.c {
+      background: #1a2a4a;
+      border: 2px solid #2a4a8a;
+    }
+
+    .train-card.g {
+      background: #1a3a1a;
+      border: 2px solid #2a7a2a;
+    }
+
+    .train-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .train-badge.c { background: #003da5; color: white; }
+    .train-badge.g { background: #4dbc3b; color: #111; }
+
+    .train-info { flex: 1; min-width: 0; }
+
+    .train-direction {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .train-destination {
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .train-times {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .time-pill {
+      background: rgba(255,255,255,0.08);
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ddd;
+    }
+
+    .time-pill.soon {
+      background: rgba(255, 200, 0, 0.15);
+      color: #ffc800;
+    }
+
+    .time-pill.now {
+      background: rgba(255, 80, 80, 0.15);
+      color: #ff5050;
+    }
+
+    .train-minutes {
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 60px;
+    }
+
+    .minutes-number {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .minutes-number.c { color: #5b8fff; }
+    .minutes-number.g { color: #4dbc3b; }
+
+    .minutes-label {
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    .delay-banner {
+      max-width: 500px;
+      margin: 0 auto 24px auto;
+      background: #2a1a0a;
+      border: 2px solid #8a4a00;
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .delay-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+
+    .delay-text {
+      font-size: 0.9rem;
+      color: #ffaa44;
+      line-height: 1.5;
+    }
+
+    .delay-text strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .refresh-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 32px;
+      background: transparent;
+      border: 2px solid #333;
+      border-radius: 50px;
+      color: #666;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .refresh-btn:hover {
+      border-color: #555;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Clinton–Washington Av</h1>
+    <p>Live Subway Times · Demo Mode</p>
+  </header>
+
+  <div class="last-updated">
+    Last updated: <span>12:34 PM</span>
+  </div>
+
+  <div class="delay-banner">
+    <div class="delay-icon">⚠️</div>
+    <div class="delay-text">
+      <strong>C Train Delay</strong>
+      Due to signal problems at Jay St, C trains are running 8–12 minutes late in both directions.
+    </div>
+  </div>
+
+  <!-- C Train -->
+  <div class="train-group">
+    <div class="section-title">C Train</div>
+
+    <div class="train-card c">
+      <div class="train-badge c">C</div>
+      <div class="train-info">
+        <div class="train-direction">Uptown</div>
+        <div class="train-destination">168 St — Washington Heights</div>
+        <div class="train-times">
+          <span class="time-pill now">Arriving</span>
+          <span class="time-pill soon">12:37 PM</span>
+          <span class="time-pill">12:45 PM</span>
+        </div>
+      </div>
+      <div class="train-minutes">
+        <div class="minutes-number c">now</div>
+        <div class="minutes-label">next train</div>
+      </div>
+    </div>
+
+    <div class="train-card c">
+      <div class="train-badge c">C</div>
+      <div class="train-info">
+        <div class="train-direction">Downtown</div>
+        <div class="train-destination">Euclid Av — East New York</div>
+        <div class="train-times">
+          <span class="time-pill soon">12:36 PM</span>
+          <span class="time-pill">12:44 PM</span>
+          <span class="time-pill">12:53 PM</span>
+        </div>
+      </div>
+      <div class="train-minutes">
+        <div class="minutes-number c">2</div>
+        <div class="minutes-label">min away</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G Train -->
+  <div class="train-group">
+    <div class="section-title">G Train</div>
+
+    <div class="train-card g">
+      <div class="train-badge g">G</div>
+      <div class="train-info">
+        <div class="train-direction">Northbound</div>
+        <div class="train-destination">Court Sq — Queens Plaza</div>
+        <div class="train-times">
+          <span class="time-pill soon">12:38 PM</span>
+          <span class="time-pill">12:46 PM</span>
+          <span class="time-pill">12:55 PM</span>
+        </div>
+      </div>
+      <div class="train-minutes">
+        <div class="minutes-number g">4</div>
+        <div class="minutes-label">min away</div>
+      </div>
+    </div>
+
+    <div class="train-card g">
+      <div class="train-badge g">G</div>
+      <div class="train-info">
+        <div class="train-direction">Southbound</div>
+        <div class="train-destination">Church Av — Brooklyn</div>
+        <div class="train-times">
+          <span class="time-pill now">Arriving</span>
+          <span class="time-pill soon">12:41 PM</span>
+          <span class="time-pill">12:50 PM</span>
+        </div>
+      </div>
+      <div class="train-minutes">
+        <div class="minutes-number g">now</div>
+        <div class="minutes-label">next train</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="refresh-btn">↻ Refresh</button>
+
+</body>
+</html>
